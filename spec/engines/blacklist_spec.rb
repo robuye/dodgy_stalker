@@ -37,6 +37,20 @@ describe DodgyStalker::Engines::Blacklist do
     end
   end
 
+  describe "#banned_ip?" do
+    it "returns false if passed ip is nil" do
+      engine.banned_ip?(nil).should be false
+    end
+
+    it "returns false if IP is not on blacklist" do
+      engine.banned_ip?('0.0.0.0').should be false
+    end
+
+    it "returns true if IP is on blacklist" do
+      DodgyStalker::DataStore::Blacklist.new.add(ip_address: '1.2.3.4')
+      engine.banned_ip?('1.2.3.4').should be true
+    end
+  end
 
   describe "#remove!" do
     it "removes the user from blacklist" do

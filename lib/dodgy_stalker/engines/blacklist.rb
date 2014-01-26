@@ -6,6 +6,7 @@ module DodgyStalker
       end
 
       def banned_ip?(ip)
+        return false if ip.nil?
         DataStore::Blacklist.where(ip_address: ip).exists?
       end
 
