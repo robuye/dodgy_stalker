@@ -19,30 +19,34 @@ module DodgyStalker
       end
 
       def banned
-        @banned = model.where(ban: true)
+        @current = model.where(ban: true)
         self
       end
 
       def on_hold
-        @on_hold = model.where(hold: true)
+        @current = model.where(hold: true)
         self
       end
 
       def to_notify
-        @to_notify = model.where(notify: true)
+        @current = model.where(notify: true)
         self
       end
 
       def email
-        @email = model.where(blacklist_email: true)
+        @current = model.where(blacklist_email: true)
         self
+      end
+
+      def current
+        @current || model
       end
 
       def match(input, partials_match=false)
         if partials_match
-          model.where("? ~* regexp_word", input)
+          current.where("? ~* regexp_word", input)
         else
-          model.where("? ~* ('#{word_separator}' || regexp_word || '#{word_separator}')", input)
+          current.where("? ~* ('#{word_separator}' || regexp_word || '#{word_separator}')", input)
         end
       end
 
