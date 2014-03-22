@@ -1,3 +1,4 @@
+require 'addressable/uri'
 module DodgyStalker
   module Engines
     class StopForumSpam
@@ -22,7 +23,7 @@ module DodgyStalker
       end
 
       def response
-        @response ||= JSON.parse(query_stopforumspam)
+        @response ||= JSON.parse(query_stopforumspam.body)
       end
 
       def url
