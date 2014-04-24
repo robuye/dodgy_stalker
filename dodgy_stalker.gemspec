@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pg"
   spec.add_development_dependency "database_cleaner"
 
-  spec.add_dependency "activerecord", "~> 4.0.0"
+  spec.add_dependency "activerecord", "~> 4.x.x"
   spec.add_dependency "typhoeus"
   spec.add_dependency "addressable"
 end
