@@ -39,5 +39,10 @@ describe DodgyStalker::Engines::BannedWords do
       datastore.create(word: 'fuck', ban: true)
       engine.banned.should be_empty
     end
+
+    it "matches with partials" do
+      datastore.create(word: 'fuck', ban: true)
+      engine.to_a(true).should have(1).element
+    end
   end
 end

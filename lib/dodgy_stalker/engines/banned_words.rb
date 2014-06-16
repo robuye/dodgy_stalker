@@ -21,8 +21,8 @@ module DodgyStalker
         @blacklisted_email ||= source.email.match(input, true).map(&:word)
       end
 
-      def to_a
-        @result ||= source.match(input).map(&:word)
+      def to_a(with_partials=false)
+        @result ||= source.match(input, with_partials).map(&:word)
       end
 
       private
