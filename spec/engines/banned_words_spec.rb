@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe DodgyStalker::Engines::BannedWords do
   let(:engine)     { described_class.new(input) }
-  let(:input)      { 'fuck! ass underage viagra' }
+  let(:input)      { "fuck! 'quoted' ass underage viagra" }
   let(:datastore)  { DodgyStalker::DataStore::Wordlist }
 
   describe "#banned" do
@@ -38,6 +38,11 @@ describe DodgyStalker::Engines::BannedWords do
     it "matches full words (no partials)" do
       datastore.create(word: 'fuck', ban: true)
       engine.banned.should be_empty
+    end
+
+    it "ignores quotes on matches" do
+      datastore.create(word: 'quoted', ban: true)
+      engine.banned.to_a.should have(1).word
     end
 
     it "matches with partials" do
