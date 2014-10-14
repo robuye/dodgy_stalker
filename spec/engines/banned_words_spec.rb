@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe DodgyStalker::Engines::BannedWords do
   let(:engine)     { described_class.new(input) }
-  let(:input)      { "fuck! 'quoted' ass underage viagra" }
+  let(:input)      { "fuck! 'quoted' +plused+ ass underage viagra" }
   let(:datastore)  { DodgyStalker::DataStore::Wordlist }
 
   describe "#banned" do
@@ -43,6 +43,14 @@ describe DodgyStalker::Engines::BannedWords do
     it "ignores quotes on matches" do
       datastore.create(word: 'quoted', ban: true)
       engine.banned.to_a.should have(1).word
+    end
+
+    it "allows to change word separator via config" do
+      old_separator = DodgyStalker::Config.new.word_separator
+      DodgyStalker.configure {|c| c.word_separator = %q{(^|\s|\A|\Z|$|\.|,|\+)} }
+      datastore.create(word: 'plused', ban: true)
+      engine.banned.to_a.should have(1).word
+      DodgyStalker.configure {|c| c.word_separator = old_separator }
     end
 
     it "matches with partials" do

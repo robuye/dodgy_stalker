@@ -1,6 +1,7 @@
 require 'bundler/setup'
 require 'database_cleaner'
 require 'dodgy_stalker'
+require 'pry'
 
 DatabaseCleaner.strategy = :transaction
 RSpec.configure do |config|

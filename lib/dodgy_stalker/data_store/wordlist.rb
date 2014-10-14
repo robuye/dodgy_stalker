@@ -57,7 +57,7 @@ module DodgyStalker
       end
 
       def word_separator
-        %q{(^|\s|\A|\Z|$|\.|,|''|"|`)}
+        DodgyStalker.config.word_separator
       end
 
       def model
