@@ -44,9 +44,9 @@ module DodgyStalker
 
       def match(input, partials_match=false)
         if partials_match
-          current.where("? ~* regexp_word", input)
+          current.where(":input ~* regexp_word", input: input)
         else
-          current.where("? ~* ('#{word_separator}' || regexp_word || '#{word_separator}')", input)
+          current.where(":input ~* ('#{word_separator}' || regexp_word || '#{word_separator}')", input: input)
         end
       end
 
