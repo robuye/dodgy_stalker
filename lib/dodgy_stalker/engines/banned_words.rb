@@ -22,7 +22,11 @@ module DodgyStalker
       end
 
       def to_a(with_partials=false)
-        @result ||= source.match(input, with_partials).map(&:word)
+        @to_a ||= source.match(input, with_partials).map(&:word)
+      end
+
+      def to_words(with_partials=false)
+        @to_words ||= source.match(input, with_partials)
       end
 
       private

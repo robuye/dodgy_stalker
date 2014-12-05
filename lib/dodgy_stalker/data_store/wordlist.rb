@@ -23,6 +23,10 @@ module DodgyStalker
         self
       end
 
+      def banned?
+        !!ban
+      end
+
       def on_hold
         @current = model.where(hold: true)
         self
