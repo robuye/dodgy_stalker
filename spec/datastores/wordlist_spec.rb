@@ -7,14 +7,14 @@ describe DodgyStalker::DataStore::Wordlist do
     context "attributes :ban, :hold, :notify" do
       it "toggle one attribute, turn off others" do
         wordlist.toggle('ban')
-        wordlist.ban.should be true
-        wordlist.hold.should be false
-        wordlist.notify.should be false
+        expect(wordlist.ban).to eq(true)
+        expect(wordlist.hold).to eq(false)
+        expect(wordlist.notify).to eq(false)
 
         wordlist.toggle('hold')
-        wordlist.ban.should be false
-        wordlist.hold.should be true
-        wordlist.notify.should be false
+        expect(wordlist.ban).to eq(false)
+        expect(wordlist.hold).to eq(true)
+        expect(wordlist.notify).to eq(false)
       end
     end
   end

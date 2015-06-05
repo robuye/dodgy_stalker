@@ -6,12 +6,12 @@ describe DodgyStalker::Policy do
 
   describe "#validate" do
     it "returns true if there are any blacklist results" do
-      policy.validate.should be true
+      expect(policy.validate).to eq(true)
     end
 
     it "returns false if there are no blacklist entries" do
-      policy.stub(:spamcheck_results).and_return([])
-      policy.validate.should be false
+      allow(policy).to receive(:spamcheck_results) { [] }
+      expect(policy.validate).to eq(false)
     end
   end
 end
